@@ -488,7 +488,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const resumeLinks =
         document.querySelectorAll(
-            'a[href*="Milin_Mahajan_Resume.pdf"]'
+            'a[href*="https://github.com/milinmahajan3725/portfolio3725/raw/refs/heads/main/ilovepdf_pages-to-jpg.zip"]'
         );
 
 
