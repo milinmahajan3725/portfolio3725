@@ -1,420 +1,354 @@
 /* =====================================================
    MILIN MAHAJAN PORTFOLIO
-   PROJECT MODAL SYSTEM
+   INTERACTIVE JAVASCRIPT
 ===================================================== */
 
+document.addEventListener("DOMContentLoaded", () => {
 
-/* =====================================================
-   PROJECT DATA
-===================================================== */
+    /* =========================
+       ELEMENTS
+    ========================= */
 
-const projects = {
+    const modal = document.getElementById("projectModal");
+    const modalClose = document.getElementById("modalClose");
 
-    sales: {
+    const modalNumber = document.getElementById("modalNumber");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalImage = document.getElementById("modalImage");
+    const modalDescription = document.getElementById("modalDescription");
+    const modalTech = document.getElementById("modalTech");
 
-        number: "PROJECT 01",
+    const pdfButton = document.getElementById("pdfButton");
+    const downloadPdf = document.getElementById("downloadPdf");
+    const codeButton = document.getElementById("codeButton");
+    const githubButton = document.getElementById("githubButton");
 
-        title: "Sales Data Analysis",
+    const navbar = document.querySelector(".navbar");
 
-        image:
-            "assets/projects/sales-data/sales-data.jpg",
 
-        description:
-            "A data analysis project using Python and Excel to analyze sales performance, identify trends, understand business patterns and generate useful insights from the dataset.",
+    /* =================================================
+       PROJECT DATA
+    ================================================= */
 
-        technologies: [
-            "Python",
-            "Excel",
-            "Pandas",
-            "Data Analysis",
-            "Data Visualization"
-        ],
+    const projects = {
 
-        pdf:
-            "assets/projects/sales-data/sales-data.pdf",
+        sales: {
 
-        code:
-            "assets/projects/sales-data/sales-data.py",
+            number: "PROJECT 01",
 
-        github:
-            "https://github.com/mahajanmilin3024"
+            title: "Sales Data Analysis",
 
-    },
+            image:
+                "assets/projects/sales-data/sales-data.jpg",
 
+            description:
+                "A data analysis project using Python and Excel.",
 
-    cyber: {
+            technologies: [
+                "Python",
+                "Excel"
+            ],
 
-        number: "PROJECT 02",
+            pdf:
+                "assets/projects/sales-data/sales-data.pdf",
 
-        title: "Cyber Security Vulnerability Assessment",
+            code:
+                "assets/projects/sales-data/sales-data.py",
 
-        image:
-            "assets/projects/cyber-security/cyber-security.jpg",
+            github:
+                "https://github.com/mahajanmilin3024"
 
-        description:
-            "A cybersecurity project focused on understanding basic security concepts, identifying vulnerabilities and performing vulnerability assessment to improve digital security.",
+        },
 
-        technologies: [
-            "Cyber Security",
-            "Vulnerability Assessment",
-            "Network Security",
-            "Security Analysis"
-        ],
 
-        pdf:
-            "assets/projects/cyber-security/cyber-security.pdf",
+        cyber: {
 
-        code:
-            "assets/projects/cyber-security/cyber-security.py",
+            number: "PROJECT 02",
 
-        github:
-            "https://github.com/mahajanmilin3024"
+            title: "Cyber Security Internship",
 
-    }
+            image:
+                "assets/projects/cyber-security/cyber-security.jpg",
 
-};
+            description:
+                "Cyber Security Internship focused on Vulnerability Assessment.",
 
+            technologies: [
+                "Cyber Security",
+                "Vulnerability Assessment"
+            ],
 
-/* =====================================================
-   GET MODAL ELEMENTS
-===================================================== */
+            pdf:
+                "assets/projects/cyber-security/cyber-security.pdf",
 
-const modal =
-    document.getElementById("projectModal");
+            code:
+                "assets/projects/cyber-security/cyber-security.py",
 
-const modalClose =
-    document.getElementById("modalClose");
+            github:
+                "https://github.com/mahajanmilin3024"
 
-const modalNumber =
-    document.getElementById("modalNumber");
+        }
 
-const modalTitle =
-    document.getElementById("modalTitle");
+    };
 
-const modalImage =
-    document.getElementById("modalImage");
 
-const modalDescription =
-    document.getElementById("modalDescription");
+    /* =================================================
+       PROJECT MODAL
+    ================================================= */
 
-const modalTech =
-    document.getElementById("modalTech");
+    const projectCards =
+        document.querySelectorAll(".project-card");
 
-const pdfButton =
-    document.getElementById("pdfButton");
 
-const downloadPdf =
-    document.getElementById("downloadPdf");
+    projectCards.forEach(card => {
 
-const codeButton =
-    document.getElementById("codeButton");
+        card.addEventListener("click", () => {
 
-const githubButton =
-    document.getElementById("githubButton");
+            const projectId =
+                card.dataset.project;
 
+            const project =
+                projects[projectId];
 
-/* =====================================================
-   PROJECT CARDS
-===================================================== */
+            if (!project) return;
 
-const projectCards =
-    document.querySelectorAll(".project-card");
 
+            /* Basic Information */
 
-/* =====================================================
-   OPEN PROJECT
-===================================================== */
+            modalNumber.textContent =
+                project.number;
 
-projectCards.forEach(card => {
+            modalTitle.textContent =
+                project.title;
 
-    card.addEventListener("click", function () {
+            modalDescription.textContent =
+                project.description;
 
-        const projectId =
-            this.getAttribute("data-project");
 
-        openProject(projectId);
+            /* Image */
 
-    });
+            modalImage.src =
+                project.image;
 
-});
+            modalImage.alt =
+                project.title;
 
 
-/* =====================================================
-   OPEN PROJECT FUNCTION
-===================================================== */
+            /* Technologies */
 
-function openProject(projectId) {
+            modalTech.innerHTML = "";
 
-    const project =
-        projects[projectId];
+            project.technologies.forEach(tech => {
 
+                const tag =
+                    document.createElement("span");
 
-    if (!project) {
+                tag.textContent = tech;
 
-        console.error(
-            "Project not found:",
-            projectId
-        );
+                modalTech.appendChild(tag);
 
-        return;
+            });
 
-    }
 
+            /* Buttons */
 
-    /* PROJECT NUMBER */
+            pdfButton.href =
+                project.pdf;
 
-    modalNumber.textContent =
-        project.number;
+            downloadPdf.href =
+                project.pdf;
 
+            codeButton.href =
+                project.code;
 
-    /* PROJECT TITLE */
+            githubButton.href =
+                project.github;
 
-    modalTitle.textContent =
-        project.title;
 
+            /* Open */
 
-    /* PROJECT IMAGE */
+            modal.classList.add("active");
 
-    modalImage.src =
-        project.image;
+            document.body.style.overflow =
+                "hidden";
 
-    modalImage.alt =
-        project.title;
-
-
-    /* DESCRIPTION */
-
-    modalDescription.textContent =
-        project.description;
-
-
-    /* TECHNOLOGIES */
-
-    modalTech.innerHTML = "";
-
-
-    project.technologies.forEach(technology => {
-
-        const tag =
-            document.createElement("span");
-
-        tag.textContent =
-            technology;
-
-        modalTech.appendChild(tag);
+        });
 
     });
 
 
-    /* PDF */
+    /* =================================================
+       CLOSE MODAL
+    ================================================= */
 
-    pdfButton.href =
-        project.pdf;
+    function closeModal() {
 
+        modal.classList.remove("active");
 
-    downloadPdf.href =
-        project.pdf;
-
-
-    /* SOURCE CODE */
-
-    codeButton.href =
-        project.code;
-
-
-    /* GITHUB */
-
-    githubButton.href =
-        project.github;
-
-
-    /* OPEN MODAL */
-
-    modal.classList.add("active");
-
-
-    /* PREVENT BODY SCROLL */
-
-    document.body.style.overflow =
-        "hidden";
-
-}
-
-
-/* =====================================================
-   CLOSE MODAL
-===================================================== */
-
-function closeProject() {
-
-    modal.classList.remove("active");
-
-    document.body.style.overflow =
-        "";
-
-}
-
-
-/* =====================================================
-   CLOSE BUTTON
-===================================================== */
-
-modalClose.addEventListener(
-    "click",
-    closeProject
-);
-
-
-/* =====================================================
-   CLICK OUTSIDE MODAL
-===================================================== */
-
-modal.addEventListener(
-    "click",
-    function (event) {
-
-        if (
-            event.target === modal
-        ) {
-
-            closeProject();
-
-        }
+        document.body.style.overflow =
+            "";
 
     }
-);
 
 
-/* =====================================================
-   ESC KEY
-===================================================== */
+    if (modalClose) {
 
-document.addEventListener(
-    "keydown",
-    function (event) {
-
-        if (
-            event.key === "Escape" &&
-            modal.classList.contains("active")
-        ) {
-
-            closeProject();
-
-        }
-
-    }
-);
-
-
-/* =====================================================
-   RESUME DOWNLOAD TRACKING
-===================================================== */
-
-const resumeLinks =
-    document.querySelectorAll(
-        'a[href*="Milin_Mahajan_Resume.pdf"]'
-    );
-
-
-resumeLinks.forEach(link => {
-
-    link.addEventListener(
-        "click",
-        function () {
-
-            console.log(
-                "Resume opened."
-            );
-
-        }
-    );
-
-});
-
-
-/* =====================================================
-   NAVBAR SCROLL EFFECT
-===================================================== */
-
-const navbar =
-    document.querySelector(".navbar");
-
-
-window.addEventListener(
-    "scroll",
-    function () {
-
-        if (window.scrollY > 30) {
-
-            navbar.style.boxShadow =
-                "0 8px 30px rgba(16, 24, 40, 0.06)";
-
-        } else {
-
-            navbar.style.boxShadow =
-                "none";
-
-        }
-
-    }
-);
-
-
-/* =====================================================
-   IMAGE ERROR HANDLING
-===================================================== */
-
-modalImage.addEventListener(
-    "error",
-    function () {
-
-        this.style.display =
-            "none";
-
-        console.warn(
-            "Project image not found:",
-            this.src
-        );
-
-    }
-);
-
-
-/* =====================================================
-   SMOOTH NAVIGATION
-===================================================== */
-
-document
-    .querySelectorAll(
-        'a[href^="#"]'
-    )
-    .forEach(link => {
-
-        link.addEventListener(
+        modalClose.addEventListener(
             "click",
-            function (event) {
+            closeModal
+        );
 
-                const targetId =
-                    this.getAttribute("href");
+    }
 
+
+    /* Click outside */
+
+    if (modal) {
+
+        modal.addEventListener(
+            "click",
+            event => {
 
                 if (
-                    targetId === "#" ||
-                    targetId === ""
+                    event.target === modal
                 ) {
 
-                    return;
+                    closeModal();
 
                 }
 
+            }
+        );
 
-                const target =
-                    document.querySelector(
-                        targetId
-                    );
+    }
 
 
-                if (target) {
+    /* ESC */
+
+    document.addEventListener(
+        "keydown",
+        event => {
+
+            if (
+                event.key === "Escape" &&
+                modal.classList.contains("active")
+            ) {
+
+                closeModal();
+
+            }
+
+        }
+    );
+
+
+    /* =================================================
+       NAVBAR SCROLL EFFECT
+    ================================================= */
+
+    window.addEventListener(
+        "scroll",
+        () => {
+
+            if (!navbar) return;
+
+            if (window.scrollY > 30) {
+
+                navbar.style.boxShadow =
+                    "0 5px 20px rgba(18, 100, 216, 0.08)";
+
+            } else {
+
+                navbar.style.boxShadow =
+                    "none";
+
+            }
+
+        }
+    );
+
+
+    /* =================================================
+       ACTIVE NAVIGATION
+    ================================================= */
+
+    const sections =
+        document.querySelectorAll(
+            "section[id]"
+        );
+
+    const navLinks =
+        document.querySelectorAll(
+            ".nav-links a"
+        );
+
+
+    window.addEventListener(
+        "scroll",
+        () => {
+
+            let current = "";
+
+            sections.forEach(section => {
+
+                const sectionTop =
+                    section.offsetTop - 100;
+
+                if (
+                    window.scrollY >= sectionTop
+                ) {
+
+                    current =
+                        section.getAttribute("id");
+
+                }
+
+            });
+
+
+            navLinks.forEach(link => {
+
+                link.style.color = "";
+
+                if (
+                    link.getAttribute("href") ===
+                    `#${current}`
+                ) {
+
+                    link.style.color =
+                        "#1264d8";
+
+                }
+
+            });
+
+        }
+    );
+
+
+    /* =================================================
+       SMOOTH SCROLL
+    ================================================= */
+
+    document
+        .querySelectorAll(
+            'a[href^="#"]'
+        )
+        .forEach(link => {
+
+            link.addEventListener(
+                "click",
+                event => {
+
+                    const targetId =
+                        link.getAttribute("href");
+
+                    const target =
+                        document.querySelector(
+                            targetId
+                        );
+
+                    if (!target) return;
 
                     event.preventDefault();
 
@@ -424,6 +358,123 @@ document
                     });
 
                 }
+            );
+
+        });
+
+
+    /* =================================================
+       SCROLL REVEAL ANIMATION
+    ================================================= */
+
+    const revealElements =
+        document.querySelectorAll(
+            ".section-title, .section-label, " +
+            ".about-content, .skill-card, " +
+            ".project-card, .contact-box"
+        );
+
+
+    revealElements.forEach(element => {
+
+        element.style.opacity = "0";
+
+        element.style.transform =
+            "translateY(20px)";
+
+        element.style.transition =
+            "opacity 0.6s ease, transform 0.6s ease";
+
+    });
+
+
+    const revealObserver =
+        new IntersectionObserver(
+            entries => {
+
+                entries.forEach(entry => {
+
+                    if (
+                        entry.isIntersecting
+                    ) {
+
+                        entry.target.style.opacity =
+                            "1";
+
+                        entry.target.style.transform =
+                            "translateY(0)";
+
+                        revealObserver.unobserve(
+                            entry.target
+                        );
+
+                    }
+
+                });
+
+            },
+            {
+                threshold: 0.12
+            }
+        );
+
+
+    revealElements.forEach(element => {
+
+        revealObserver.observe(element);
+
+    });
+
+
+    /* =================================================
+       PROJECT IMAGE ERROR HANDLING
+    ================================================= */
+
+    if (modalImage) {
+
+        modalImage.addEventListener(
+            "error",
+            () => {
+
+                modalImage.alt =
+                    "Project image not available";
+
+                console.warn(
+                    "Project image not found."
+                );
+
+            }
+        );
+
+    }
+
+
+    /* =================================================
+       BUTTON CLICK EFFECT
+    ================================================= */
+
+    const buttons =
+        document.querySelectorAll(
+            ".btn, .nav-resume, " +
+            ".contact-button, .modal-buttons a"
+        );
+
+
+    buttons.forEach(button => {
+
+        button.addEventListener(
+            "click",
+            () => {
+
+                button.style.transform =
+                    "scale(0.97)";
+
+                setTimeout(() => {
+
+                    button.style.transform =
+                        "";
+
+                }, 120);
 
             }
         );
@@ -431,10 +482,69 @@ document
     });
 
 
-/* =====================================================
-   CONSOLE MESSAGE
-===================================================== */
+    /* =================================================
+       RESUME LINK
+    ================================================= */
 
-console.log(
-    "🚀 Milin Mahajan Portfolio Loaded Successfully!"
-);
+    const resumeLinks =
+        document.querySelectorAll(
+            'a[href*="Milin_Mahajan_Resume.pdf"]'
+        );
+
+
+    resumeLinks.forEach(link => {
+
+        link.addEventListener(
+            "click",
+            () => {
+
+                console.log(
+                    "Resume opened."
+                );
+
+            }
+        );
+
+    });
+
+
+    /* =================================================
+       GITHUB LINKS
+    ================================================= */
+
+    const githubLinks =
+        document.querySelectorAll(
+            'a[href*="github.com"]'
+        );
+
+
+    githubLinks.forEach(link => {
+
+        link.addEventListener(
+            "click",
+            () => {
+
+                console.log(
+                    "GitHub profile opened."
+                );
+
+            }
+        );
+
+    });
+
+
+    /* =================================================
+       PAGE LOADED
+    ================================================= */
+
+    document.body.classList.add(
+        "page-loaded"
+    );
+
+
+    console.log(
+        "Milin Mahajan Portfolio Loaded Successfully."
+    );
+
+});
